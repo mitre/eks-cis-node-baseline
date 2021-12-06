@@ -1,8 +1,7 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.1.1' do
-  title 'draft'
-  desc  "If `kubelet` is running, and if it is using a file-based kubeconfig
+  title "If `kubelet` is running, and if it is using a file-based kubeconfig
 file, ensure that the proxy kubeconfig file has permissions of `644` or more
 restrictive."
   desc  'rationale', "
@@ -64,5 +63,17 @@ each worker
   tag cis_level: 1
   tag cis_controls: ['5.1', 'Rev_6']
   tag cis_rid: '3.1.1'
+
+  kubeconfig = input('kubeconfig')
+
+  if service('kubelet').running? && !kubeconfig.empty?
+    describe file(kubeconfig) do
+      it { should_not be_more_permissive_than('0644') }
+    end
+  else
+    describe "kubelet not running or not using a kubeconfig file" do
+      skip "kubelet not running or not using a kubeconfig file"
+    end
+  end
 end
 

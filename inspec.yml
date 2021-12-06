@@ -6,3 +6,29 @@ copyright_email: .
 license: Apache-2.0
 summary: InSpec Profile for AWS EKS CIS Benchmark v1.0.1
 version: 0.1.0
+
+inputs:
+  - name: kubeconfig
+    description: Path to the kubeconfig file used by this node
+    type: String
+    # value: "/var/lib/kubelet/kubeconfig"
+
+  - name: kubelet_config
+    description: Path to the config file used by the kubelet service on this node (via --config flag)
+    type: String
+    # value: "/etc/kubernetes/kubelet/kubelet-config.json"
+
+  - name: node_name
+    description: Name of the target node
+    type: String
+    value: "minikube"
+
+  - name: proxy_hostname
+    description: Hostname of the k8s proxy
+    type: String
+    value: "localhost"
+
+  - name: proxy_port
+    description: Port of the k8s proxy
+    type: String
+    value: "8001"

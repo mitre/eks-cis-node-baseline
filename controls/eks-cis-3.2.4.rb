@@ -1,8 +1,7 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.2.4' do
-  title 'draft'
-  desc  'Disable the read-only port.'
+  title 'Disable the read-only port.'
   desc  'rationale', "The Kubelet process provides a read-only API in addition
 to the main Kubelet API. Unauthenticated access is provided to this read-only
 API which could possibly retrieve potentially sensitive information about the

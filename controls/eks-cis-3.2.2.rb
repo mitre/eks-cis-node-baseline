@@ -1,8 +1,7 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.2.2' do
-  title 'draft'
-  desc  'Do not allow all requests. Enable explicit authorization.'
+  title 'Do not allow all requests. Enable explicit authorization.'
   desc  'rationale', "Kubelets, by default, allow all authenticated requests
 (even anonymous ones) without needing explicit authorization checks from the
 apiserver. You should restrict this behavior and only allow explicitly

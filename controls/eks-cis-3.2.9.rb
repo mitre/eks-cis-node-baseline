@@ -1,8 +1,7 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.2.9' do
-  title 'draft'
-  desc  "Security relevant information should be captured. The
+  title "Security relevant information should be captured. The
 `--eventRecordQPS` flag on the Kubelet can be used to limit the rate at which
 events are gathered. Setting this too low could result in relevant events not
 being logged, however the unlimited setting of `0` could result in a denial of

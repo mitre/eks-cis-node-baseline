@@ -1,8 +1,7 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.2.6' do
-  title 'draft'
-  desc  "Protect tuned kernel parameters from overriding kubelet default kernel
+  title "Protect tuned kernel parameters from overriding kubelet default kernel
 parameter values."
   desc  'rationale', "Kernel parameters are usually tuned and hardened by the
 system administrators before putting the systems into production. These

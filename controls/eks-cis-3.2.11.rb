@@ -1,8 +1,7 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.2.11' do
-  title 'draft'
-  desc  'Enable kubelet server certificate rotation.'
+  title 'Enable kubelet server certificate rotation.'
   desc  'rationale', "
     `RotateKubeletServerCertificate` causes the kubelet to both request a
 serving certificate after bootstrapping its client credentials and rotate the

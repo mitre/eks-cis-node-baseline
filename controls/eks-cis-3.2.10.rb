@@ -1,8 +1,7 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.2.10' do
-  title 'draft'
-  desc  'Enable kubelet client certificate rotation.'
+  title 'Enable kubelet client certificate rotation.'
   desc  'rationale', "
     The `--rotate-certificates` setting causes the kubelet to rotate its client
 certificates by creating new CSRs as its existing credentials expire. This

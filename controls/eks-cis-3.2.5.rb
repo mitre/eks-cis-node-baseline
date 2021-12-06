@@ -1,8 +1,7 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.2.5' do
-  title 'draft'
-  desc  'Do not disable timeouts on streaming connections.'
+  title 'Do not disable timeouts on streaming connections.'
   desc  'rationale', "
     Setting idle timeouts ensures that you are protected against
 Denial-of-Service attacks, inactive connections and running out of ephemeral

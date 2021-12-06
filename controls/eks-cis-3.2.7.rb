@@ -1,8 +1,7 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.2.7' do
-  title 'draft'
-  desc  'Allow Kubelet to manage iptables.'
+  title 'Allow Kubelet to manage iptables.'
   desc  'rationale', "Kubelets can automatically manage the required changes to
 iptables based on how you choose your networking options for the pods. It is
 recommended to let kubelets manage the changes to iptables. This ensures that

@@ -1,8 +1,7 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.2.3' do
-  title 'draft'
-  desc  'Enable Kubelet authentication using certificates.'
+  title 'Enable Kubelet authentication using certificates.'
   desc  'rationale', "The connections from the apiserver to the kubelet are
 used for fetching logs for pods, attaching (through kubectl) to running pods,
 and using the kubelet’s port-forwarding functionality. These connections

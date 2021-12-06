@@ -1,8 +1,7 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.1.2' do
-  title 'draft'
-  desc  "If `kubelet` is running, ensure that the file ownership of its
+  title "If `kubelet` is running, ensure that the file ownership of its
 kubeconfig file is set to `root:root`."
   desc  'rationale', "The kubeconfig file for `kubelet` controls various
 parameters for the `kubelet` service in the worker node. You should set its
@@ -56,5 +55,18 @@ each worker node. For example,
   tag cis_level: 1
   tag cis_controls: ['5.1', 'Rev_6']
   tag cis_rid: '3.1.2'
+
+  kubeconfig = input('kubeconfig')
+
+  if service('kubelet').running? && !kubeconfig.empty?
+    describe file(kubeconfig) do
+      its('owner') { should eq 'root' }
+      its('group') { should eq 'root' }
+    end
+  else
+    describe "kubelet not running or not using a kubeconfig file" do
+      skip "kubelet not running or not using a kubeconfig file"
+    end
+  end
 end
 

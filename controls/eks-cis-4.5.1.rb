@@ -1,8 +1,7 @@
 # encoding: UTF-8
 
 control 'eks-cis-4.5.1' do
-  title 'draft'
-  desc  'Configure Image Provenance for your deployment.'
+  title 'Configure Image Provenance for your deployment.'
   desc  'rationale', "Kubernetes supports plugging in provenance rules to
 accept or reject the images in your deployments. You could configure such rules
 to ensure that only approved images are deployed in the cluster."
