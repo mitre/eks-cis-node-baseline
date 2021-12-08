@@ -1,7 +1,9 @@
 # encoding: UTF-8
 
 control 'eks-cis-4.5.1' do
-  title 'Configure Image Provenance for your deployment.'
+  title "Configure Image Provenance using ImagePolicyWebhook
+  admission controller"
+  desc  'Configure Image Provenance for your deployment.'
   desc  'rationale', "Kubernetes supports plugging in provenance rules to
 accept or reject the images in your deployments. You could configure such rules
 to ensure that only approved images are deployed in the cluster."
@@ -20,5 +22,8 @@ image provenance is configured as appropriate."
   tag cis_level: 2
   tag cis_controls: ['18', 'Rev_6']
   tag cis_rid: '4.5.1'
-end
 
+  describe "The ImagePolicy Webhook admission controller must be manually configured to ensure image provenance" do
+    skip "The ImagePolicy Webhook admission controller must be manually configured to ensure image provenance"
+  end
+end

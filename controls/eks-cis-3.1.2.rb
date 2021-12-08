@@ -1,7 +1,9 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.1.2' do
-  title "If `kubelet` is running, ensure that the file ownership of its
+  title "Ensure that the kubelet kubeconfig file ownership is set to
+  root:root"
+  desc  "If `kubelet` is running, ensure that the file ownership of its
 kubeconfig file is set to `root:root`."
   desc  'rationale', "The kubeconfig file for `kubelet` controls various
 parameters for the `kubelet` service in the worker node. You should set its

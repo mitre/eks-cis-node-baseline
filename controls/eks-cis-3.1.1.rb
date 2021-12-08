@@ -1,7 +1,9 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.1.1' do
-  title "If `kubelet` is running, and if it is using a file-based kubeconfig
+  title "Ensure that the kubeconfig file permissions are set to 644 or more
+  restrictive"
+  desc  "If `kubelet` is running, and if it is using a file-based kubeconfig
 file, ensure that the proxy kubeconfig file has permissions of `644` or more
 restrictive."
   desc  'rationale', "

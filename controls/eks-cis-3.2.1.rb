@@ -1,7 +1,8 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.2.1' do
-  title 'Disable anonymous requests to the Kubelet server.'
+  title "Ensure that the --anonymous-auth argument is set to false"
+  desc  'Disable anonymous requests to the Kubelet server.'
   desc  'rationale', "When enabled, requests that are not rejected by other
 configured authentication methods are treated as anonymous requests. These
 requests are then served by the Kubelet server. You should rely on
@@ -132,11 +133,11 @@ configuration changes
     kubelet_config_extension = File.extname(kubelet_config_file)
     if kubelet_config_extension == '.json'
       describe json(kubelet_config_file) do
-        its(['kubeletconfig', 'authentication', 'anonymous', 'enabled']) { should cmp 'false' }
+        its(['authentication', 'anonymous', 'enabled']) { should be false }
       end
     elsif kubelet_config_extension == '.yaml' || kubelet_config_extension == '.yml'
       describe yaml(kubelet_config_file) do
-        its(['kubeletconfig', 'authentication', 'anonymous', 'enabled']) { should cmp 'false' }
+        its(['authentication', 'anonymous', 'enabled']) { should be false }
       end
     else
       describe "kubelet config file error -- format" do
@@ -147,7 +148,7 @@ configuration changes
   elsif kubelet_config_accessible_via_api
     describe "Checking /configz kubelet API endpoint for kubelet config data" do
       subject { json(content: http("http://#{proxy_hostname}:#{proxy_port}/api/v1/nodes/#{node_name}/proxy/configz").body) }
-      its(['kubeletconfig', 'authentication', 'anonymous', 'enabled']) { should cmp 'false' }
+      its(['kubeletconfig', 'authentication', 'anonymous', 'enabled']) { should be false }
     end
   else
     describe "There should be inputs given on how to find kubelet config data" do

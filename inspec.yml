@@ -16,6 +16,7 @@ inputs:
   - name: kubelet_config
     description: Path to the config file used by the kubelet service on this node (via --config flag)
     type: String
+    #value: /Users/wdower/work/eks-cis-node-baseline/sample_kubelet_cfg.yaml
     # value: "/etc/kubernetes/kubelet/kubelet-config.json"
 
   - name: node_name
@@ -32,3 +33,15 @@ inputs:
     description: Port of the k8s proxy
     type: String
     value: "8001"
+
+  # 3.2.3
+  - name: client_ca_file_path
+    description: Path to the node's local certificate path
+    type: String
+    value: "/var/lib/minikube/certs/ca.crt"
+
+  # 3.2.10 and 3.2.11
+  - name: external_cert_authority_in_use
+    description: Set to true if this node is receiving certificates from somewhere other than from the k8s API server (e.g. Vault)
+    type: Boolean
+    value: false

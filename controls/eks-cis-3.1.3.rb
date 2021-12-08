@@ -1,7 +1,9 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.1.3' do
-  title "Ensure that if the kubelet refers to a configuration file with the
+  title "Ensure that the kubelet configuration file has permissions set to
+  644 or more restrictive"
+  desc  "Ensure that if the kubelet refers to a configuration file with the
 `--config` argument, that file has permissions of 644 or more restrictive."
   desc  'rationale', "The kubelet reads various parameters, including security
 settings, from a config file specified by the `--config` argument. If this file

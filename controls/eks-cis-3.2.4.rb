@@ -1,7 +1,8 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.2.4' do
-  title 'Disable the read-only port.'
+  title "Ensure that the --read-only-port is secured"
+  desc  'Disable the read-only port.'
   desc  'rationale', "The Kubelet process provides a read-only API in addition
 to the main Kubelet API. Unauthenticated access is provided to this read-only
 API which could possibly retrieve potentially sensitive information about the
@@ -72,5 +73,41 @@ string.
   tag cis_level: 1
   tag cis_controls: ['9.1', 'Rev_6']
   tag cis_rid: '3.2.4'
+
+  kubelet_config_file = input('kubelet_config')
+
+  node_name = input('node_name')
+  proxy_hostname = input('proxy_hostname')
+  proxy_port = input('proxy_port')
+
+  kubelet_config_accessible_via_api = !node_name.empty? && !proxy_hostname.empty? && !proxy_port.empty?
+
+  if !kubelet_config_file.empty?
+    kubelet_config_extension = File.extname(kubelet_config_file)
+    if kubelet_config_extension == '.json'
+      describe json(kubelet_config_file) do
+        its(['readOnlyPort']) { should cmp '0' }
+      end
+    elsif kubelet_config_extension == '.yaml' || kubelet_config_extension == '.yml'
+      describe yaml(kubelet_config_file) do
+        its(['readOnlyPort']) { should cmp '0' }
+      end
+    else
+      describe "kubelet config file error -- format" do
+        subject{ kubelet_config_extension }
+        it { should be_in ['.yaml', '.yml', '.json'] }
+      end
+    end
+  elsif kubelet_config_accessible_via_api
+    describe "Checking /configz kubelet API endpoint for kubelet config data" do
+      subject { json(content: http("http://#{proxy_hostname}:#{proxy_port}/api/v1/nodes/#{node_name}/proxy/configz").body) }
+      its(['kubeletconfig', 'readOnlyPort']) { should cmp '0' }
+    end
+  else
+    describe "There should be inputs given on how to find kubelet config data" do
+      subject { !kubelet_config_file.empty? || kubelet_config_accessible_via_api }
+      it { should be true }
+    end
+  end
 end
 

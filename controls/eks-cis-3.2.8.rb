@@ -1,7 +1,8 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.2.8' do
-  title 'Do not override node hostnames.'
+  title "Ensure that the --hostname-override argument is not set"
+  desc  'Do not override node hostnames.'
   desc  'rationale', "Overriding hostnames could potentially break TLS setup
 between the kubelet and the apiserver. Additionally, with overridden hostnames,
 it becomes increasingly difficult to associate logs with a particular node and
@@ -77,5 +78,9 @@ string.
   tag cis_level: 1
   tag cis_controls: ['3', 'Rev_6']
   tag cis_rid: '3.2.8'
+
+  describe command("ps -ef | grep kubelet | grep -v grep").stdout.strip.split do
+    it { should_not include "--hostname-override" }
+  end
 end
 

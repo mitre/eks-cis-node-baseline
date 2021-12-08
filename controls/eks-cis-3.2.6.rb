@@ -1,7 +1,8 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.2.6' do
-  title "Protect tuned kernel parameters from overriding kubelet default kernel
+  title "Ensure that the --protect-kernel-defaults argument is set to true"
+  desc  "Protect tuned kernel parameters from overriding kubelet default kernel
 parameter values."
   desc  'rationale', "Kernel parameters are usually tuned and hardened by the
 system administrators before putting the systems into production. These
@@ -128,5 +129,41 @@ configuration changes
   tag cis_level: 1
   tag cis_controls: ['3', 'Rev_6']
   tag cis_rid: '3.2.6'
+
+  kubelet_config_file = input('kubelet_config')
+
+  node_name = input('node_name')
+  proxy_hostname = input('proxy_hostname')
+  proxy_port = input('proxy_port')
+
+  kubelet_config_accessible_via_api = !node_name.empty? && !proxy_hostname.empty? && !proxy_port.empty?
+
+  if !kubelet_config_file.empty?
+    kubelet_config_extension = File.extname(kubelet_config_file)
+    if kubelet_config_extension == '.json'
+      describe json(kubelet_config_file) do
+        its(['protectKernelDefaults']) { should be true }
+      end
+    elsif kubelet_config_extension == '.yaml' || kubelet_config_extension == '.yml'
+      describe yaml(kubelet_config_file) do
+        its(['protectKernelDefaults']) { should be true }
+      end
+    else
+      describe "kubelet config file error -- format" do
+        subject{ kubelet_config_extension }
+        it { should be_in ['.yaml', '.yml', '.json'] }
+      end
+    end
+  elsif kubelet_config_accessible_via_api
+    describe "Checking /configz kubelet API endpoint for kubelet config data" do
+      subject { json(content: http("http://#{proxy_hostname}:#{proxy_port}/api/v1/nodes/#{node_name}/proxy/configz").body) }
+      its(['kubeletconfig', 'protectKernelDefaults']) { should be true }
+    end
+  else
+    describe "There should be inputs given on how to find kubelet config data" do
+      subject { !kubelet_config_file.empty? || kubelet_config_accessible_via_api }
+      it { should be true }
+    end
+  end
 end
 

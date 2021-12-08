@@ -1,8 +1,10 @@
 # encoding: UTF-8
 
 control 'eks-cis-3.1.4' do
-  title "Ensure that if the kubelet refers to a configuration file with the
-`--config` argument, that file is owned by root:root."
+  title "Ensure that the kubelet configuration file ownership is set to
+  root:root"
+  desc  "Ensure that if the kubelet refers to a configuration file with 
+  the --config argument, that file is owned by root:root."
   desc  'rationale', "The kubelet reads various parameters, including security
 settings, from a config file specified by the `--config` argument. If this file
 is specified you should restrict its file permissions to maintain the integrity
