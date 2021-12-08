@@ -1,9 +1,7 @@
-# encoding: UTF-8
-
 control 'eks-cis-3.1.4' do
   title "Ensure that the kubelet configuration file ownership is set to
   root:root"
-  desc  "Ensure that if the kubelet refers to a configuration file with 
+  desc "Ensure that if the kubelet refers to a configuration file with
   the --config argument, that file is owned by root:root."
   desc  'rationale', "The kubelet reads various parameters, including security
 settings, from a config file specified by the `--config` argument. If this file
@@ -53,7 +51,7 @@ Audit step)
   tag stig_id: nil
   tag fix_id: nil
   tag cci: nil
-  tag nist: ['CM-6', 'Rev_4']
+  tag nist: %w(CM-6 Rev_4)
   tag cis_level: 1
   tag cis_controls: ['5.1', 'Rev_6']
   tag cis_rid: '3.1.4'
@@ -66,8 +64,8 @@ Audit step)
       its('group') { should eq 'root' }
     end
   else
-    describe "kubelet not running or not using the --config flag" do
-      skip "kubelet not running or not using the --config flag"
+    describe 'kubelet not running or not using the --config flag' do
+      skip 'kubelet not running or not using the --config flag'
     end
   end
 end

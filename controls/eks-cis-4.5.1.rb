@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 control 'eks-cis-4.5.1' do
   title "Configure Image Provenance using ImagePolicyWebhook
   admission controller"
@@ -18,12 +16,12 @@ image provenance is configured as appropriate."
   tag stig_id: nil
   tag fix_id: nil
   tag cci: nil
-  tag nist: ['AC-6', 'Rev_4']
+  tag nist: %w(AC-6 Rev_4)
   tag cis_level: 2
-  tag cis_controls: ['18', 'Rev_6']
+  tag cis_controls: %w(18 Rev_6)
   tag cis_rid: '4.5.1'
 
-  describe "The ImagePolicy Webhook admission controller must be manually configured to ensure image provenance" do
-    skip "The ImagePolicy Webhook admission controller must be manually configured to ensure image provenance"
+  describe 'The ImagePolicy Webhook admission controller must be manually configured to ensure image provenance' do
+    skip 'The ImagePolicy Webhook admission controller must be manually configured to ensure image provenance'
   end
 end

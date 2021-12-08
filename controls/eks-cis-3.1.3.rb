@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 control 'eks-cis-3.1.3' do
   title "Ensure that the kubelet configuration file has permissions set to
   644 or more restrictive"
@@ -53,7 +51,7 @@ Audit step)
   tag stig_id: nil
   tag fix_id: nil
   tag cci: nil
-  tag nist: ['CM-6', 'Rev_4']
+  tag nist: %w(CM-6 Rev_4)
   tag cis_level: 1
   tag cis_controls: ['5.1', 'Rev_6']
   tag cis_rid: '3.1.3'
@@ -65,9 +63,8 @@ Audit step)
       it { should_not be_more_permissive_than('0644') }
     end
   else
-    describe "kubelet not running or not using the --config flag" do
-      skip "kubelet not running or not using the --config flag"
+    describe 'kubelet not running or not using the --config flag' do
+      skip 'kubelet not running or not using the --config flag'
     end
   end
 end
-

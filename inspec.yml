@@ -9,14 +9,14 @@ version: 0.1.0
 
 inputs:
   - name: kubeconfig
-    description: Path to the kubeconfig file used by this node
+    description: Path to the kubeconfig file used by this node (leave blank if no kubeconfig is used)
     type: String
-    value: "/var/lib/kubelet/kubeconfig"
+    value: ""
 
   - name: kubelet_config
-    description: Path to the config file used by the kubelet service on this node (via --config flag)
+    description: Path to the config file used by the kubelet service on this node via --config flag (leave blank if no kubelet config file is used)
     type: String
-    value: "/etc/kubernetes/kubelet/kubelet-config.json"
+    value: ""
 
   - name: node_name
     description: Name of the target node

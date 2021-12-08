@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 control 'eks-cis-3.1.2' do
   title "Ensure that the kubelet kubeconfig file ownership is set to
   root:root"
@@ -53,7 +51,7 @@ each worker node. For example,
   tag stig_id: nil
   tag fix_id: nil
   tag cci: nil
-  tag nist: ['CM-6', 'Rev_4']
+  tag nist: %w(CM-6 Rev_4)
   tag cis_level: 1
   tag cis_controls: ['5.1', 'Rev_6']
   tag cis_rid: '3.1.2'
@@ -66,9 +64,8 @@ each worker node. For example,
       its('group') { should eq 'root' }
     end
   else
-    describe "kubelet not running or not using a kubeconfig file" do
-      skip "kubelet not running or not using a kubeconfig file"
+    describe 'kubelet not running or not using a kubeconfig file' do
+      skip 'kubelet not running or not using a kubeconfig file'
     end
   end
 end
-

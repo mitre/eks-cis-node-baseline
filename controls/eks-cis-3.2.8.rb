@@ -1,7 +1,5 @@
-# encoding: UTF-8
-
 control 'eks-cis-3.2.8' do
-  title "Ensure that the --hostname-override argument is not set"
+  title 'Ensure that the --hostname-override argument is not set'
   desc  'Do not override node hostnames.'
   desc  'rationale', "Overriding hostnames could potentially break TLS setup
 between the kubelet and the apiserver. Additionally, with overridden hostnames,
@@ -35,7 +33,7 @@ the Kubelet config file.
 
     **Note** This setting is not configurable via the Kubelet config file.
   "
-  desc  'fix', "
+  desc 'fix', "
     **Remediation Method 1:**
 
     If modifying the Kubelet config file, edit the kubelet-config.json file
@@ -74,13 +72,12 @@ string.
   tag stig_id: nil
   tag fix_id: nil
   tag cci: nil
-  tag nist: ['RA-5', 'Rev_4']
+  tag nist: %w(RA-5 Rev_4)
   tag cis_level: 1
-  tag cis_controls: ['3', 'Rev_6']
+  tag cis_controls: %w(3 Rev_6)
   tag cis_rid: '3.2.8'
 
-  describe command("ps -ef | grep kubelet | grep -v grep").stdout.strip.split do
-    it { should_not include "--hostname-override" }
+  describe command('ps -ef | grep kubelet | grep -v grep').stdout.strip.split do
+    it { should_not include '--hostname-override' }
   end
 end
-

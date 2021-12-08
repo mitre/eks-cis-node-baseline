@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 control 'eks-cis-3.2.2' do
   title "Ensure that the --authorization-mode argument is not set to
   AlwaysAllow"
@@ -60,7 +58,7 @@ number and node name;
 \"http://${HOSTNAME_PORT}/api/v1/nodes/${NODE_NAME}/proxy/configz\"
     ```
   "
-  desc  'fix', "
+  desc 'fix', "
     **Remediation Method 1:**
 
     If modifying the Kubelet config file, edit the kubelet-config.json file
@@ -121,9 +119,9 @@ configuration changes
   tag stig_id: nil
   tag fix_id: nil
   tag cci: nil
-  tag nist: ['AC-6', 'Rev_4']
+  tag nist: %w(AC-6 Rev_4)
   tag cis_level: 1
-  tag cis_controls: ['14', 'Rev_6']
+  tag cis_controls: %w(14 Rev_6)
   tag cis_rid: '3.2.2'
 
   kubelet_config_file = input('kubelet_config')
@@ -138,28 +136,27 @@ configuration changes
     kubelet_config_extension = File.extname(kubelet_config_file)
     if kubelet_config_extension == '.json'
       describe json(kubelet_config_file) do
-        its(['authentication', 'webhook', 'enabled']) { should be false }
+        its(%w(authentication webhook enabled)) { should be false }
       end
     elsif kubelet_config_extension == '.yaml' || kubelet_config_extension == '.yml'
       describe yaml(kubelet_config_file) do
-        its(['authentication', 'webhook', 'enabled']) { should be false }
+        its(%w(authentication webhook enabled)) { should be false }
       end
     else
-      describe "kubelet config file error -- format" do
-        subject{ kubelet_config_extension }
+      describe 'kubelet config file error -- format' do
+        subject { kubelet_config_extension }
         it { should be_in ['.yaml', '.yml', '.json'] }
       end
     end
   elsif kubelet_config_accessible_via_api
-    describe "Checking /configz kubelet API endpoint for kubelet config data" do
+    describe 'Checking /configz kubelet API endpoint for kubelet config data' do
       subject { json(content: http("http://#{proxy_hostname}:#{proxy_port}/api/v1/nodes/#{node_name}/proxy/configz").body) }
-      its(['kubeletconfig', 'authentication', 'webhook', 'enabled']) { should be false }
+      its(%w(kubeletconfig authentication webhook enabled)) { should be false }
     end
   else
-    describe "There should be inputs given on how to find kubelet config data" do
+    describe 'There should be inputs given on how to find kubelet config data' do
       subject { !kubelet_config_file.empty? || kubelet_config_accessible_via_api }
       it { should be true }
     end
   end
 end
-

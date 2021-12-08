@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 control 'eks-cis-3.1.1' do
   title "Ensure that the kubeconfig file permissions are set to 644 or more
   restrictive"
@@ -61,7 +59,7 @@ each worker
   tag stig_id: nil
   tag fix_id: nil
   tag cci: nil
-  tag nist: ['CM-6', 'Rev_4']
+  tag nist: %w(CM-6 Rev_4)
   tag cis_level: 1
   tag cis_controls: ['5.1', 'Rev_6']
   tag cis_rid: '3.1.1'
@@ -73,9 +71,8 @@ each worker
       it { should_not be_more_permissive_than('0644') }
     end
   else
-    describe "kubelet not running or not using a kubeconfig file" do
-      skip "kubelet not running or not using a kubeconfig file"
+    describe 'kubelet not running or not using a kubeconfig file' do
+      skip 'kubelet not running or not using a kubeconfig file'
     end
   end
 end
-
