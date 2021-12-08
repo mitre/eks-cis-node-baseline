@@ -1,10 +1,30 @@
-# eks-cis-baseline
+# eks-cis-node-baseline (WIP)
 
-InSpec profile to validate the secure configuration of AWS EKS, against [CIS](https://www.cisecurity.org/cis-benchmarks/)'s CIS Amazon Elastic Kubernetes Service (EKS) Benchmark version 1.0.1.
+Work-in-progress InSpec profile to validate the secure configuration of AWS EKS, against [CIS](https://www.cisecurity.org/cis-benchmarks/)'s CIS Amazon Elastic Kubernetes Service (EKS) Benchmark version 1.0.1.
 
 ## Getting Started
 
-It is intended and recommended that InSpec run this profile from a **"runner"** host (such as a DevOps orchestration server, an administrative management system, or a developer's workstation/laptop) against the target remotely over **winrm**.
+This profile should be executed from a runner host against each node comprising an EKS cluster in AWS using SSH. EKS nodes must be configured to accept an SSH connection from the runner host.
+
+The profile may be downloaded to the runner for execution, or simply executed directly off of this GitHub repository. InSpec profiles can use different reporters to pressent output, such as the `cli` reporter to print results to the terminal and the `json` reporter to generate a JSON file of the results.
+
+Executing the profile by downloading it to the runner:
+
+```
+git clone https://github.com/mitre/eks-cis-node-baseline.git
+cd eks-cis-node-baseline
+inspec exec . -t ssh://ec2-user@<node 1 IP address> -i private_key.pem --reporter cli json:node1results.json
+...
+inspec exec . -t ssh://ec2-user@<node N IP address> -i private_key.pem --reporter cli json:nodeNresults.json
+```
+
+Executing the profile by executing it from this GitHub repository:
+
+```
+inspec exec https://github.com/mitre/eks-cis-node-baseline.git -t ssh://ec2-user@<node 1 IP address> -i private_key.pem --reporter cli json:node1results.json
+...
+inspec exec https://github.com/mitre/eks-cis-node-baseline.git -t ssh://ec2-user@<node N IP address> -i private_key.pem --reporter cli json:nodeNresults.json
+```
 
 **For the best security of the runner, always install on the runner the _latest version_ of InSpec and supporting Ruby language components.**
 
@@ -20,7 +40,7 @@ Latest versions and installation options are available at the [InSpec](http://in
 
 ## Contributing and Getting Help
 
-To report a bug or feature request, please open an [issue](https://github.com/mitre/eks-cis-baseline/issues/new).
+To report a bug or feature request, please open an [issue](https://github.com/mitre/eks-cis-node-baseline/issues/new).
 
 ### NOTICE
 
