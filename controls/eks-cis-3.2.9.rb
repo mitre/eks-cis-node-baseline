@@ -129,15 +129,14 @@ configuration changes
   tag cis_controls: %w(6 Rev_6)
   tag cis_rid: '3.2.9'
 
-
   options = { assignment_regex: /(\S+)?:(\S+)?/ }
-  service_flags = parse_config(service('kubelet').params['ExecStart'].gsub(" ", "\n"), options)
+  service_flags = parse_config(service('kubelet').params['ExecStart'].gsub(' ', "\n"), options)
 
   describe.one do
-    describe kubelet_config_file  do
+    describe kubelet_config_file do
       its(['eventRecordQPS']) { should be >= 0 }
     end
-    describe "Kubelet service flag" do
+    describe 'Kubelet service flag' do
       subject { service_flags }
       its('--eventRecordQPS') { should_not be nil }
       its('--eventRecordQPS.to_i') { should be >= 0 }

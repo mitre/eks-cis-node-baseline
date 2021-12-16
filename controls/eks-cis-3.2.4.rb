@@ -73,20 +73,20 @@ string.
   tag cis_rid: '3.2.4'
 
   options = { assignment_regex: /(\S+)?=(\S+)?/ }
-  service_flags = parse_config(service('kubelet').params['ExecStart'].gsub(" ", "\n"), options)
+  service_flags = parse_config(service('kubelet').params['ExecStart'].gsub(' ', "\n"), options)
 
   describe.one do
-    describe kubelet_config_file  do
+    describe kubelet_config_file do
       its(['readOnlyPort']) { should be nil }
     end
-    describe kubelet_config_file  do
+    describe kubelet_config_file do
       its(['readOnlyPort']) { should be 0 }
     end
-    describe "Kubelet service flag" do
+    describe 'Kubelet service flag' do
       subject { service_flags }
       its('--read-only-port') { should be nil }
     end
-    describe "Kubelet service flag" do
+    describe 'Kubelet service flag' do
       subject { service_flags }
       its('--read-only-port') { should cmp '0' }
     end

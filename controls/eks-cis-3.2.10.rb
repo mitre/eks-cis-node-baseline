@@ -81,9 +81,9 @@ string.
   tag cis_rid: '3.2.10'
 
   external_cert_authority_in_use = input('external_cert_authority_in_use')
-  
+
   options = { assignment_regex: /(\S+)?:(\S+)?/ }
-  service_flags = parse_config(service('kubelet').params['ExecStart'].gsub(" ", "\n"), options)
+  service_flags = parse_config(service('kubelet').params['ExecStart'].gsub(' ', "\n"), options)
 
   if external_cert_authority_in_use
     describe 'N/A - Node using external authority/tool to handle certificate rotation' do
@@ -94,7 +94,7 @@ string.
       describe kubelet_config_file  do
         its(['rotateCertificates']) { should_not be false }
       end
-      describe "Kubelet service flag" do
+      describe 'Kubelet service flag' do
         subject { service_flags }
         its('--rotate-certificates') { should cmp 'false' }
       end

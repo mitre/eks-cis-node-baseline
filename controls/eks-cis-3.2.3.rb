@@ -134,13 +134,13 @@ configuration changes
   client_ca_file_path = input('client_ca_file_path')
 
   options = { assignment_regex: /(\S+)?=(\S+)?/ }
-  service_flags = parse_config(service('kubelet').params['ExecStart'].gsub(" ", "\n"), options)
+  service_flags = parse_config(service('kubelet').params['ExecStart'].gsub(' ', "\n"), options)
 
   describe.one do
-    describe kubelet_config_file  do
+    describe kubelet_config_file do
       its(%w(authentication x509 clientCAFile)) { should cmp client_ca_file_path }
     end
-    describe "Kubelet service flag" do
+    describe 'Kubelet service flag' do
       subject { service_flags }
       its('--authorization-mode') { should cmp 'Webhook' }
     end

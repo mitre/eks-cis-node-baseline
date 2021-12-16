@@ -125,13 +125,13 @@ configuration changes
   tag cis_rid: '3.2.2'
 
   options = { assignment_regex: /(\S+)?=(\S+)?/ }
-  service_flags = parse_config(service('kubelet').params['ExecStart'].gsub(" ", "\n"), options)
+  service_flags = parse_config(service('kubelet').params['ExecStart'].gsub(' ', "\n"), options)
 
   describe.one do
-    describe kubelet_config_file  do
+    describe kubelet_config_file do
       its(%w(authentication webhook enabled)) { should be true }
     end
-    describe "Kubelet service flag" do
+    describe 'Kubelet service flag' do
       subject { service_flags }
       its('--authorization-mode') { should cmp 'Webhook' }
     end
