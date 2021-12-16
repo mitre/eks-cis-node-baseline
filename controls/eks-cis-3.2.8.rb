@@ -77,7 +77,11 @@ string.
   tag cis_controls: %w(3 Rev_6)
   tag cis_rid: '3.2.8'
 
-  describe command('ps -ef | grep kubelet | grep -v grep').stdout.strip.split do
-    it { should_not include '--hostname-override' }
+  options = { assignment_regex: /(\S+)?:(\S+)?/ }
+  service_flags = parse_config(service('kubelet').params['ExecStart'].gsub(" ", "\n"), options)
+
+  describe "Kubelet service flag" do
+    subject { service_flags }
+    its('--hostname-override') { should be nil }
   end
 end

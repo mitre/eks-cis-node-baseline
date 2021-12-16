@@ -64,15 +64,14 @@ each worker
   tag cis_controls: ['5.1', 'Rev_6']
   tag cis_rid: '3.1.1'
 
-  kubeconfig = input('kubeconfig')
+  k = file(kubelet.kubeconfig.first)
 
-  if service('kubelet').running? && !kubeconfig.empty?
-    describe file(kubeconfig) do
-      it { should_not be_more_permissive_than('0644') }
+  describe.one do
+    describe k do
+      it { should_not exist }
     end
-  else
-    describe 'kubelet not running or not using a kubeconfig file' do
-      skip 'kubelet not running or not using a kubeconfig file'
+    describe k do
+      it { should_not be_more_permissive_than('0644') }
     end
   end
 end

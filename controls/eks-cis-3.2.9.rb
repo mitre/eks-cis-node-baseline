@@ -129,13 +129,20 @@ configuration changes
   tag cis_controls: %w(6 Rev_6)
   tag cis_rid: '3.2.9'
 
-  kubelet_config_file = input('kubelet_config')
 
-  node_name = input('node_name')
-  proxy_hostname = input('proxy_hostname')
-  proxy_port = input('proxy_port')
+  options = { assignment_regex: /(\S+)?:(\S+)?/ }
+  service_flags = parse_config(service('kubelet').params['ExecStart'].gsub(" ", "\n"), options)
 
-  kubelet_config_accessible_via_api = !node_name.empty? && !proxy_hostname.empty? && !proxy_port.empty?
+  describe.one do
+    describe kubelet_config_file  do
+      its(['eventRecordQPS']) { should be >= 0 }
+    end
+    describe "Kubelet service flag" do
+      subject { service_flags }
+      its('--eventRecordQPS') { should_not be nil }
+      its('--eventRecordQPS.to_i') { should be >= 0 }
+    end
+  end
 
   if !kubelet_config_file.empty?
     kubelet_config_extension = File.extname(kubelet_config_file)

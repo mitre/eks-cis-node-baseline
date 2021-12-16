@@ -56,16 +56,15 @@ Audit step)
   tag cis_controls: ['5.1', 'Rev_6']
   tag cis_rid: '3.1.4'
 
-  kubelet_config = input('kubelet_config')
+  k_conf = file(kubelet.config.first)
 
-  if service('kubelet').running? && !kubelet_config.empty?
-    describe file(kubelet_config) do
+  describe.one do
+    describe k_conf do
+      it { should_not exist }
+    end
+    describe k_conf do
       its('owner') { should eq 'root' }
       its('group') { should eq 'root' }
-    end
-  else
-    describe 'kubelet not running or not using the --config flag' do
-      skip 'kubelet not running or not using the --config flag'
     end
   end
 end

@@ -56,15 +56,14 @@ Audit step)
   tag cis_controls: ['5.1', 'Rev_6']
   tag cis_rid: '3.1.3'
 
-  kubelet_config = input('kubelet_config')
+  k_conf = file(kubelet.config.first)
 
-  if service('kubelet').running? && !kubelet_config.empty?
-    describe file(kubelet_config) do
-      it { should_not be_more_permissive_than('0644') }
+  describe.one do
+    describe k_conf do
+      it { should_not exist }
     end
-  else
-    describe 'kubelet not running or not using the --config flag' do
-      skip 'kubelet not running or not using the --config flag'
+    describe k_conf do
+      it { should_not be_more_permissive_than('0644') }
     end
   end
 end

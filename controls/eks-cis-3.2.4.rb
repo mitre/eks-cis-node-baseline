@@ -72,56 +72,23 @@ string.
   tag cis_controls: ['9.1', 'Rev_6']
   tag cis_rid: '3.2.4'
 
-  kubelet_config_file = input('kubelet_config')
+  options = { assignment_regex: /(\S+)?=(\S+)?/ }
+  service_flags = parse_config(service('kubelet').params['ExecStart'].gsub(" ", "\n"), options)
 
-  node_name = input('node_name')
-  proxy_hostname = input('proxy_hostname')
-  proxy_port = input('proxy_port')
-
-  kubelet_config_accessible_via_api = !node_name.empty? && !proxy_hostname.empty? && !proxy_port.empty?
-
-  if !kubelet_config_file.empty?
-    kubelet_config_extension = File.extname(kubelet_config_file)
-    if kubelet_config_extension == '.json'
-      describe.one do
-        describe json(kubelet_config_file) do
-          its(['readOnlyPort']) { should be nil }
-        end
-        describe json(kubelet_config_file) do
-          its(['readOnlyPort']) { should be 0 }
-        end
-      end
-    elsif kubelet_config_extension == '.yaml' || kubelet_config_extension == '.yml'
-      describe.one do 
-        describe yaml(kubelet_config_file) do
-          its(['readOnlyPort']) { should be nil }
-        end
-        describe yaml(kubelet_config_file) do
-          its(['readOnlyPort']) { should be 0 }
-        end
-      end
-    else
-      describe 'kubelet config file error -- format' do
-        subject { kubelet_config_extension }
-        it { should be_in ['.yaml', '.yml', '.json'] }
-      end
+  describe.one do
+    describe kubelet_config_file  do
+      its(['readOnlyPort']) { should be nil }
     end
-  elsif kubelet_config_accessible_via_api
-    j = json(content: http("http://#{proxy_hostname}:#{proxy_port}/api/v1/nodes/#{node_name}/proxy/configz").body)
-    describe.one do
-      describe 'Checking /configz kubelet API endpoint for kubelet config data' do
-        subject { j }
-        its(%w(kubeletconfig readOnlyPort)) { should be nil }
-      end
-      describe 'Checking /configz kubelet API endpoint for kubelet config data' do
-        subject { j }
-        its(%w(kubeletconfig readOnlyPort)) { should be 0 }
-      end
+    describe kubelet_config_file  do
+      its(['readOnlyPort']) { should be 0 }
     end
-  else
-    describe 'There should be inputs given on how to find kubelet config data' do
-      subject { !kubelet_config_file.empty? || kubelet_config_accessible_via_api }
-      it { should be true }
+    describe "Kubelet service flag" do
+      subject { service_flags }
+      its('--read-only-port') { should be nil }
+    end
+    describe "Kubelet service flag" do
+      subject { service_flags }
+      its('--read-only-port') { should cmp '0' }
     end
   end
 end
