@@ -16,7 +16,7 @@ inputs:
   - name: client_ca_file_path
     description: Path to the node's local certificate path
     type: String
-    value: ""
+    value: "/etc/kubernetes/pki/ca.crt"
 
   # 3.2.10 and 3.2.11
   - name: external_cert_authority_in_use

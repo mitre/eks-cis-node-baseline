@@ -142,7 +142,7 @@ configuration changes
     end
     describe 'Kubelet service flag' do
       subject { service_flags }
-      its('--authorization-mode') { should cmp 'Webhook' }
+      its('--client-ca-file') { should cmp client_ca_file_path }
     end
   end
 end
