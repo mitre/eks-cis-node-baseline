@@ -66,7 +66,7 @@ sudo inspec exec <archive name> -t ssh://ec2-user@<node N IP address> -i private
 For every successive run, follow these steps to always have the latest version of this baseline and dependent profiles:
 
 ```
-cd redhat-enterprise-linux-7-stig-baseline
+cd eks-cis-node-baseline
 git pull
 cd ..
 inspec archive eks-cis-node-baseline --overwrite
