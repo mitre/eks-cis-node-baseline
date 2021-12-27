@@ -6,7 +6,7 @@ InSpec profile to validate the secure configuration of AWS EKS, against [CIS](ht
 
 This profile should be executed from a runner host against each node comprising an EKS cluster in AWS using SSH. EKS nodes must be configured to accept an SSH connection from the runner host.
 
-The profile may be downloaded to the runner for execution, or simply executed directly off of this GitHub repository. InSpec profiles can use different reporters to pressent output, such as the `cli` reporter to print results to the terminal and the `json` reporter to generate a JSON file of the results.
+The profile may be downloaded to the runner for execution, or simply executed directly off of this GitHub repository. InSpec profiles can use different reporters to present output, such as the `cli` reporter to print results to the terminal and the `json` reporter to generate a JSON file of the results.
 
 **For the best security of the runner, always install on the runner the _latest version_ of InSpec and supporting Ruby language components.**
 
