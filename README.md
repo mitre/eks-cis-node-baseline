@@ -1,10 +1,12 @@
 # eks-cis-node-baseline
 
-InSpec profile to validate the secure configuration of AWS EKS, against [CIS](https://www.cisecurity.org/cis-benchmarks/)'s CIS Amazon Elastic Kubernetes Service (EKS) Benchmark version 1.0.1.
+InSpec profile to validate the secure configuration of AWS EKS nodes, against [CIS](https://www.cisecurity.org/cis-benchmarks/)'s CIS Amazon Elastic Kubernetes Service (EKS) Benchmark version 1.0.1.
+
+The baseline includes tests that must be executed against the Kubernetes API and tests that must be executed against the underlying nodes over SSH. This profile handles only the node tests, and is intended to be run alonside the EKS [CIS Cluster Baseline profile](https://github.com/mitre/eks-cis-cluster-baseline).
 
 ## Getting Started
 
-This profile should be executed from a runner host against each node comprising an EKS cluster in AWS using SSH. EKS nodes must be configured to accept an SSH connection from the runner host.
+This profile should be executed from a runner host against each node comprising an EKS cluster in AWS using SSH as a transport. EKS nodes must be configured to accept an SSH connection from the runner host.
 
 The profile may be downloaded to the runner for execution, or simply executed directly off of this GitHub repository. InSpec profiles can use different reporters to present output, such as the `cli` reporter to print results to the terminal and the `json` reporter to generate a JSON file of the results.
 
