@@ -126,7 +126,7 @@ configuration changes
   tag stig_id: nil
   tag fix_id: nil
   tag cci: nil
-  tag nist: %w(AC-4 Rev_4)
+  tag nist: ['AC-4', 'Rev_4']
   tag cis_level: 1
   tag cis_controls: ['14.2', 'Rev_6']
   tag cis_rid: '3.2.11'

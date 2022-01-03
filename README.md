@@ -2,7 +2,7 @@
 
 InSpec profile to validate the secure configuration of AWS EKS nodes, against [CIS](https://www.cisecurity.org/cis-benchmarks/)'s CIS Amazon Elastic Kubernetes Service (EKS) Benchmark version 1.0.1.
 
-The baseline includes tests that must be executed against the Kubernetes API and tests that must be executed against the underlying nodes over SSH. This profile handles only the node tests, and is intended to be run alonside the EKS [CIS Cluster Baseline profile](https://github.com/mitre/eks-cis-cluster-baseline).
+The baseline includes tests that must be executed against the Kubernetes API and tests that must be executed against the underlying nodes over SSH. This profile handles only the node tests, and is intended to be run alongside the [EKS CIS Cluster Baseline profile](https://github.com/mitre/eks-cis-cluster-baseline).
 
 ## Getting Started
 

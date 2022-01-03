@@ -114,9 +114,9 @@ configuration changes
   tag stig_id: nil
   tag fix_id: nil
   tag cci: nil
-  tag nist: %w(AC-6 Rev_4)
+  tag nist: ['AC-6', 'Rev_4']
   tag cis_level: 1
-  tag cis_controls: %w(14 Rev_6)
+  tag cis_controls: ['14', 'Rev_6']
   tag cis_rid: '3.2.1'
 
   options = { assignment_regex: /(\S+)?=(\S+)?/ }
@@ -124,7 +124,7 @@ configuration changes
 
   describe.one do
     describe kubelet_config_file do
-      its(%w(authentication anonymous enabled)) { should be false }
+      its(['authentication', 'anonymous', 'enabled']) { should be false }
     end
     describe 'Kubelet service flag' do
       subject { service_flags }

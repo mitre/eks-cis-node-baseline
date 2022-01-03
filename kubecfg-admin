@@ -4,18 +4,18 @@ clusters:
     certificate-authority: /Users/wdower/.minikube/ca.crt
     extensions:
     - extension:
-        last-update: Mon, 06 Dec 2021 16:02:34 EST
+        last-update: Mon, 13 Dec 2021 11:46:04 EST
         provider: minikube.sigs.k8s.io
         version: v1.24.0
       name: cluster_info
-    server: https://127.0.0.1:61179
+    server: https://127.0.0.1:49823
   name: minikube
 contexts:
 - context:
     cluster: minikube
     extensions:
     - extension:
-        last-update: Mon, 06 Dec 2021 16:02:34 EST
+        last-update: Mon, 13 Dec 2021 11:46:04 EST
         provider: minikube.sigs.k8s.io
         version: v1.24.0
       name: context_info

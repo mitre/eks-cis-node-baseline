@@ -126,7 +126,7 @@ configuration changes
   tag stig_id: nil
   tag fix_id: nil
   tag cci: nil
-  tag nist: %w(AC-4 Rev_4)
+  tag nist: ['AC-4', 'Rev_4']
   tag cis_level: 1
   tag cis_controls: ['14.2', 'Rev_6']
   tag cis_rid: '3.2.3'
@@ -138,7 +138,7 @@ configuration changes
 
   describe.one do
     describe kubelet_config_file do
-      its(%w(authentication x509 clientCAFile)) { should cmp client_ca_file_path }
+      its(['authentication', 'x509', 'clientCAFile']) { should cmp client_ca_file_path }
     end
     describe 'Kubelet service flag' do
       subject { service_flags }
