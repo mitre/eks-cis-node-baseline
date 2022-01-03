@@ -67,9 +67,12 @@ string.
   tag stig_id: nil
   tag fix_id: nil
   tag cci: nil
-  tag nist: ['CM-8', 'Rev_4']
+  tag nist: ['CM-7 (1)']
   tag cis_level: 1
-  tag cis_controls: ['9.1', 'Rev_6']
+  tag cis_controls: [
+    { '6' => ['9.1'] },
+    { '7' => ['9.2'] }
+  ]
   tag cis_rid: '3.2.4'
 
   options = { assignment_regex: /(\S+)?=(\S+)?/ }

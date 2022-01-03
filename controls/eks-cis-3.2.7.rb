@@ -120,9 +120,12 @@ configuration changes
   tag stig_id: nil
   tag fix_id: nil
   tag cci: nil
-  tag nist: ['SC-7', 'Rev_4']
+  tag nist: ['SC-7']
   tag cis_level: 1
-  tag cis_controls: ['9', 'Rev_6']
+  tag cis_controls: [
+    { '6' => ['9'] },
+    { '7' => ['9'] }
+  ]
   tag cis_rid: '3.2.7'
 
   options = { assignment_regex: /(\S+)?:(\S+)?/ }

@@ -51,9 +51,12 @@ Audit step)
   tag stig_id: nil
   tag fix_id: nil
   tag cci: nil
-  tag nist: ['CM-6', 'Rev_4']
+  tag nist: ['AC-6 (9)', 'CM-2']
   tag cis_level: 1
-  tag cis_controls: ['5.1', 'Rev_6']
+  tag cis_controls: [
+    { '6' => ['5.1'] },
+    { '7' => ['5.2'] }
+  ]
   tag cis_rid: '3.1.4'
 
   k_conf = file(kubelet.config.first)

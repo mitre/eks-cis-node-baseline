@@ -75,9 +75,12 @@ string.
   tag stig_id: nil
   tag fix_id: nil
   tag cci: nil
-  tag nist: ['AC-4', 'Rev_4']
+  tag nist: ['SC-8']
   tag cis_level: 2
-  tag cis_controls: ['14.2', 'Rev_6']
+  tag cis_controls: [
+    { '6' => ['14.2'] },
+    { '7' => ['14.4'] }
+  ]
   tag cis_rid: '3.2.10'
 
   external_cert_authority_in_use = input('external_cert_authority_in_use')
