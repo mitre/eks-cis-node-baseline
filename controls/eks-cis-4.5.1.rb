@@ -8,8 +8,8 @@ to ensure that only approved images are deployed in the cluster."
   desc  'check', "Review the pod definitions in your cluster and verify that
 image provenance is configured as appropriate."
   desc  'fix', 'Follow the Kubernetes documentation and setup image provenance.'
-  impact 0.7
-  tag severity: 'high'
+  impact 0.5
+  tag severity: 'medium'
   tag gtitle: nil
   tag gid: nil
   tag rid: nil
