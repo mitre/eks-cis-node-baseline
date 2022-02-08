@@ -67,8 +67,8 @@ string.
     --RotateCertificate=true
     ```
   "
-  impact 0.7
-  tag severity: 'high'
+  impact 0.5
+  tag severity: 'medium'
   tag gtitle: nil
   tag gid: nil
   tag rid: nil

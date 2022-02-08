@@ -5,7 +5,7 @@ copyright: The MITRE Corporation, 2021
 copyright_email: .
 license: Apache-2.0
 summary: InSpec Profile for AWS EKS CIS Benchmark v1.0.1 tests that require direct SSH access to the nodes
-version: 0.1.0
+version: 0.1.1
 
 depends:
   - name: inspec-k8s-node
