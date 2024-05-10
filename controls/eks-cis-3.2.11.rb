@@ -146,7 +146,7 @@ configuration changes
   else
     describe.one do
       describe kubelet_config_file do
-        its(['rotateKubeletServerCertificate']) { should be true }
+        its(['featureGates','RotateKubeletServerCertificate']) { should be true }
       end
       describe 'Kubelet service flag' do
         subject { service_flags }
